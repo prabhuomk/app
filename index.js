@@ -2,7 +2,8 @@ import express from "express";
 import {MongoClient} from "mongodb";
 import dotenv from "dotenv";
 import {pollRouter} from "./routes/poll.js"
-import bcrypt from "bcrypt";
+import {userRouter} from "./routes/user.js"
+
 
 dotenv.config();
 
@@ -36,14 +37,9 @@ app.get("/",(request,response)=>{
     
 app.use('/poll',pollRouter);
 
+app.use('/user',userRouter);
+
 
 
 app.listen(PORT,()=>console.log("the server started",PORT));
 
-async function genPassword(password){
-    
-    const salt=await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password,salt);
-    console.log(hashedPassword);
-}
-genPassword("password@123");

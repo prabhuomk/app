@@ -22,3 +22,22 @@ export async function insertPoll(client, polls) {
     console.log("successfully inserted", result);
     return result;
 }
+
+export async function insertUser(client, user) {
+    const result = await client.db("contestant").collection("user").insertOne(user);
+    console.log("successfully pass inserted", result);
+    return result;
+}
+
+export async function getUsers(client, filter) {
+    const result = await client.db("contestant").collection("user").find(filter).toArray();
+    console.log("successfully found the user", result);
+    return result;
+}
+
+
+export async function getUser(client, filter) {
+    const result = await client.db("contestant").collection("user").findOne(filter);
+    console.log("successfully matched", result);
+    return result;
+}
