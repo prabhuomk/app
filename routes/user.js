@@ -3,6 +3,7 @@ import {  insertUser,getUsers ,getUser} from "../helper.js";
 import {createConnection} from "../index.js";
 import express from 'express';
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 
 const router=express.Router();
@@ -32,7 +33,8 @@ router
     const inDbStoredPassword=user.password;
     const isMatch= await bcrypt.compare(password,inDbStoredPassword);
     if(isMatch){
-        response.send({message:"successfully login"});
+        const token=jwt.sign({id:user._id},process.env.KEY)
+        response.send({message:"successfully login",token:token});
     }
     else{
         response.send({message:"invalid login"});
