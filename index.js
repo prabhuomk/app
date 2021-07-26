@@ -1,10 +1,13 @@
 import express from "express";
 import {MongoClient} from "mongodb";
 import dotenv from "dotenv";
+
 dotenv.config();
 
 const app = express();
 const PORT=process.env.PORT;
+
+app.use(express.json());
 
 
    async function createConnection (){
@@ -39,6 +42,17 @@ const PORT=process.env.PORT;
     return result;
    }
 
+   
+   async function insertPoll(client,polls)
+   {
+    const result=await client.db("contestant").collection("poll").insertMany(polls);
+    console.log("successfully inserted",result);
+    return result;
+   }
+
+
+
+
    app.get("/",(request,response)=>{
     response.send("welcome to app");
 });
@@ -72,5 +86,13 @@ app.get("/poll/:id", async (request,response)=>{
     
 });
 
+app.post("/poll", async (request,response)=>{
+
+    const client=await createConnection();
+    const polls=request.body;
+    const contestant=await insertPoll(client,polls);
+    response.send(contestant);
+    
+});
+
 app.listen(PORT,()=>console.log("the server started",PORT));
-console.log("pk");
