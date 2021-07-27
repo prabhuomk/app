@@ -4,6 +4,7 @@ import {createConnection} from "../index.js";
 import express from 'express';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import {auth} from "../middleware/auth.js"
 
 
 const router=express.Router();
@@ -46,7 +47,7 @@ router
 
 router
 .route("/")
-.get( async (request,response)=>{
+.get(auth, async (request,response)=>{
     const client=await createConnection();
     const contestants=await getUsers(client,{});
     response.send(contestants);

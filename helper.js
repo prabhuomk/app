@@ -41,3 +41,11 @@ export async function getUser(client, filter) {
     console.log("successfully matched", result);
     return result;
 }
+
+export async function updatePollById(client, id,newPoll) {
+    const result = await client.db("contestant").collection("poll").updateOne({ id: id },{$set:newPoll});
+    console.log("successfully updated", result);
+    return result;
+}
+
+
