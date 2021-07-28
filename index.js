@@ -3,6 +3,7 @@ import {MongoClient} from "mongodb";
 import dotenv from "dotenv";
 import {pollRouter} from "./routes/poll.js"
 import {userRouter} from "./routes/user.js"
+import cors from "cors"
 
 
 dotenv.config();
@@ -11,6 +12,7 @@ const app = express();
 const PORT=process.env.PORT;
 
 app.use(express.json());
+app.use(cors());
 
 
 
