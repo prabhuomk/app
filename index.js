@@ -16,9 +16,11 @@ app.use(express.json());
 
 app.use(cors()); 
 
+app.use('/user',userRouter);
+
 app.use('/poll',pollRouter);
 
-app.use('/user',userRouter);
+
 
 app.listen(PORT,()=>console.log("the server started",PORT));
 
