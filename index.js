@@ -22,6 +22,10 @@ app.use('/user',userRouter);
 
 app.listen(PORT,()=>console.log("the server started",PORT));
 
+app.get("/",(request,response)=>{
+    response.send("welcome to app");
+});
+
 
 
 export async function createConnection (){
@@ -40,9 +44,7 @@ export async function createConnection (){
        }
    }
 
-app.get("/",(request,response)=>{
-    response.send("welcome to app");
-});
+
    
 
 
