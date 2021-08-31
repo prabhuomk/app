@@ -31,6 +31,9 @@ router
     const client=await createConnection();
     const user=await getUser(client,{username:username});
     console.log(user);
+    if(!user){
+        response.send({message:"user not exits,please sign up"})
+    }else{
     const inDbStoredPassword=user.password;
     const isMatch= await bcrypt.compare(password,inDbStoredPassword);
     if(isMatch){
@@ -40,7 +43,8 @@ router
     else{
         response.send({message:"invalid login"});
 
-    }  
+    } 
+} 
     
 });
 

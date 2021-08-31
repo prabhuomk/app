@@ -9,10 +9,18 @@ import cors from "cors"
 dotenv.config();
 
 const app = express();
+
 const PORT=process.env.PORT;
 
 app.use(express.json());
+
 app.use(cors()); 
+
+app.use('/poll',pollRouter);
+
+app.use('/user',userRouter);
+
+app.listen(PORT,()=>console.log("the server started",PORT));
 
 
 
@@ -36,12 +44,5 @@ app.get("/",(request,response)=>{
     response.send("welcome to app");
 });
    
-    
-app.use('/poll',pollRouter);
 
-app.use('/user',userRouter);
-
-
-
-app.listen(PORT,()=>console.log("the server started",PORT));
 
